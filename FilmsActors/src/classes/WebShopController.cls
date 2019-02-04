@@ -4,8 +4,6 @@
 
 public class WebShopController {
 
-    public WebShopController() {
-    }
     public WebShopController(ApexPages.StandardController controller) {
 
         List<String> fields = new List<String>();
@@ -55,9 +53,10 @@ public class WebShopController {
             update item;
             insert order;
             myMsg = new ApexPages.Message(ApexPages.Severity.CONFIRM, 'Order made:' + order.name + ' ' + unitsCount);
-            ApexPages.addMessage(myMsg);
         } catch (DmlException e) {
             myMsg = new ApexPages.Message(ApexPages.Severity.ERROR, e.getMessage());
+        } finally {
+            ApexPages.addMessage(myMsg);
         }
     }
 }
