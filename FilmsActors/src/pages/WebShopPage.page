@@ -1,0 +1,42 @@
+<!--
+ - Created by mashkovskiya on 1/24/2019.
+ -->
+
+<apex:page id="WebShopPage" standardController="Product_Table__c" recordSetvar="products">
+    <apex:slds />
+
+    <apex:form >
+        <apex:pageBlock title="Product List">
+
+            <apex:pageBlockTable value="{!products}" var="record" columnsWidth="10%,10%,20%,40%,10%,10%">
+                <apex:column headerValue="IMAGE">
+                    <apex:image url="{!record.Image_Url__c}"/>
+                </apex:column>
+                <apex:column headerValue="" style="text-align:center;">
+                    <apex:commandLink target="_blank"  action="{!$Page.detailShopPage + '?id=' + record.Id}"
+                                      value="{!record.name}"/>
+
+                </apex:column>
+                <apex:column headerValue="TITLE" headerClass="colHeader">
+                    <apex:outputField value="{!record.Title__c}"/>
+                </apex:column>
+                <apex:column style="width:250px" headerValue="DESCRIPTION">
+                    <apex:outputField value="{!record.Product_Description__c}"/>
+                    <apex:commandLink target="_blank" action="{!$Page.detailShopPage + '?id=' + record.Id}"
+                                      value=" ....more details>>"/>
+                </apex:column>
+                <apex:column headerValue="COST" style="text-align:center;">
+                    <apex:outputField value="{!record.Unit_Price__c}"/>
+                </apex:column>
+                <apex:column >
+                    <apex:commandLink action="{!$Page.pageOrder + '?id=' + record.Id}" value="Buy"
+                                      styleClass="slds-button slds-button--brand slds-button--neutral slds-not-selected">
+
+                    </apex:commandLink>
+                </apex:column>
+
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+
+</apex:page>

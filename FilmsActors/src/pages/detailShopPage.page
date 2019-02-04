@@ -1,0 +1,63 @@
+<!--
+ - Created by mashkovskiya on 1/24/2019.
+ -->
+<apex:page id="detailShopPage" standardController="Product_Table__c">
+    <apex:slds />
+    <apex:form >
+        <div class="slds-page-header slds-m-bottom&#45;&#45;small" role="banner">
+            <div class="slds-align_absolute-center slds-text-heading_large">
+                <strong> {!Product_Table__c.name}</strong>
+            </div>
+        </div>
+
+        <table class="slds-table slds-table_fixed-layout">
+            <td scope="col" class="slds-size_1-of-2">
+                <div class="slds-align_absolute-center large" title="Cost">
+                    <apex:image url="{!Product_Table__c.Image_Url__c}" width="400"/>
+                </div>
+            </td>
+            <td scope="col" class="slds-size_1-of-2">
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-truncate" title="Action">
+                        <apex:outputLabel >AMOUNT:</apex:outputLabel>
+                    </div>
+                    <div class="slds-truncate">
+                        <strong>
+                            <apex:outputText style="white-space: normal" value="{!Product_Table__c.Units_Available__c}"/>
+                        </strong>
+                    </div>
+                </div>
+
+                <div class="slds-m-bottom_medium">
+                    <div class="slds-truncate" title="Action">
+                        <apex:outputLabel >TITLE:</apex:outputLabel>
+                    </div>
+                    <div class="slds-truncate">
+                        <apex:outputText style="white-space: normal" value="{!Product_Table__c.Title__c}"/>
+                    </div>
+                </div>
+
+                <div class="slds-m-bottom_medium">
+                    <div title="Action">
+                        <apex:outputLabel >DESCRIPTION:</apex:outputLabel>
+                    </div>
+                    <div class="slds-truncate">
+                        <apex:outputText style="white-space: normal" value="{!Product_Table__c.Product_Description__c}"/>
+                    </div>
+                </div>
+            </td>
+        </table>
+
+        <div class="slds-page-header slds-m-bottom&#45;&#45;small" role="banner">
+            <div class="slds-align_absolute-center large">
+                <apex:commandLink action="/{!$Page.WebShopPage}" value="To Shopping"
+                                    styleClass="slds-button slds-button_neutral"/>
+                <apex:commandLink action="{!$Page.pageOrder + '?id=' + Product_Table__c.Id}" value="Buy"
+                                  styleClass="slds-button slds-button--brand slds-button--neutral slds-not-selected">
+
+                </apex:commandLink>
+            </div>
+        </div>
+
+    </apex:form>
+</apex:page>

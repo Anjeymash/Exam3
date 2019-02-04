@@ -1,0 +1,117 @@
+<!--
+ - Created by mashkovskiya on 1/25/2019.
+ -->
+
+<apex:page id="pageOrder" docType="html-5.0" standardController="Product_Table__c" extensions="WebShopController">
+    <apex:slds/>
+    <apex:form id="form">
+        <apex:pageMessages/>
+
+        <div class="slds-page-header slds-m-bottom&#45;&#45;small" role="banner">
+            <div class="slds-grid slds-wrap">
+                <div class="slds-align_absolute-center slds-text-heading_large slds-size_1-of-2">
+                    <strong> Contact Information</strong>
+                </div>
+                <div class="slds-align_absolute-center slds-text-heading_large slds-size_1-of-2">
+                    <strong> Product Information</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-grid slds-wrap">
+            <div class="slds-align_absolute-center  slds-size_1-of-2">
+                <div class="slds-form">
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">Email</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputtext styleClass="slds-input"
+                                            value="{!contactEmail}" onBlur="getContact();"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">{!$ObjectType.Contact.fields.firstName.Label}</label>
+                        <div class="slds-form-element__control">
+                            <apex:inputText styleClass="slds-input"
+                                            rendered="true" value="{!contact.firstName}"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">{!$ObjectType.Contact.fields.lastName.Label}</label>
+                        <div class="slds-form-element__control ">
+                            <apex:inputText styleClass="slds-input requiredInput"
+                                            rendered="true" value="{!contact.lastName}"/>
+                        </div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+
+            <div class="slds-align_absolute-center slds-size_1-of-2">
+                <div class="slds-form">
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">Product Name</label>
+                        <div class="">
+                            <apex:outputField rendered="true" value="{!item.name}"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">Cost</label>
+                        <div class="">
+                            <apex:outputfield id="price" rendered="true" value="{!item.Unit_Price__c}"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">Unit Count</label>
+                        <div class="slds-form-element__control">
+                            <apex:input type="number" id="unitCount" html-min="0" rendered="true"
+                                        styleClass="slds-input"
+                                        value="{!unitsCount}"
+                                        onChange="totalAmount({!item.Units_Available__c});"
+                                        onclick="totalAmount({!item.Units_Available__c});"/>
+                        </div>
+                    </div>
+
+                    <div class="slds-form-element slds-form-element_horizontal">
+                        <label class="slds-form-element__label">Total Amount</label>
+                        <div class="">
+                            <apex:outputText id="amount" rendered="true" value="$0"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slds-page-header slds-m-bottom&#45;&#45;small" role="banner">
+            <div class="slds-align_absolute-center large">
+                <apex:commandButton value="Buy" action="{!makeOrder}"
+                                    onComplete="totalAmount({!item.Units_Available__c})" reRender="form"
+                                    styleClass="slds-button slds-button--brand slds-button--neutral slds-not-selected"/>
+                <apex:commandLink  action="/{!$Page.webShopPage}" value="To Shopping"
+                                  styleClass="slds-button slds-button_neutral"/>
+
+            </div>
+        </div>
+        <apex:actionFunction name="getContact" action="{!getContactByEmail}"
+                             onComplete="totalAmount({!item.Units_Available__c})" reRender="form"/>
+        <apex:actionFunction name="makeOrder" reRender="form" action="{!makeOrder}"/>
+    </apex:form>
+
+    <script type="text/javascript">
+        function totalAmount(unitcount) {
+            var price = document.getElementById('pageOrder:form:price').innerHTML;
+            var count = document.getElementById('pageOrder:form:unitCount').value;
+            var pr$ = price.match(/[]{0,1}[\d]*[\.]{0,1}[\d]+/g);
+            document.getElementById('pageOrder:form:amount').innerHTML = price.charAt(0) + pr$[0] * count;
+            if (count > unitcount) {
+                document.getElementById('pageOrder:form:unitCount').value = 0;
+                document.getElementById('pageOrder:form:amount').innerHTML = 0;
+                alert('you can not order more than ' + unitcount + ' units');
+            }
+        }
+    </script>
+</apex:page>
