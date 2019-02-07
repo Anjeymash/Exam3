@@ -1,0 +1,38 @@
+<!--
+ - Created by mashkovskiya on 1/31/2019.
+ -->
+
+<aura:component description="mainFilmComp" controller="FilmsController">
+    <aura:attribute name="films" type="List"/>
+    <aura:handler event="c:SearchKeyChange" action="{!c.searchKeyChange}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+    <aura:if isTrue="{!v.Spinner}">
+        <div aura:id="spinnerId" class="slds-spinner_container">
+            <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                <span class="slds-assistive-text">Loading</span>
+                <div class="slds-spinner__dot-a"></div>
+                <div class="slds-spinner__dot-b"></div>
+            </div>
+        </div>
+    </aura:if>
+
+    <div class="slds-page-header">
+        <div class="slds-grid">
+            <div class="slds-col slds-has-flexi-truncate">
+                <lightning:icon iconName="utility:salesforce1"/>
+                <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate"
+                    title="My Contacts">Film Manager</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="slds-card__header slds-size&#45;&#45;1-of-1">
+        <c:searchFilmsComp />
+        <c:resultFilmsComp films="{!v.films}"/>
+    </div>
+</aura:component>

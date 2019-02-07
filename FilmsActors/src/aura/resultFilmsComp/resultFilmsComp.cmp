@@ -1,0 +1,84 @@
+<!--
+ - Created by mashkovskiya on 1/31/2019.
+ -->
+
+<aura:component description="resultFilmsComp">
+    <aura:attribute name="films" type="List"/>
+
+    <div class="slds-page-header">
+        <div class="slds-grid">
+            <div class="slds-align_absolute-center  slds-size_1-of-1">
+                <h1 class="slds-page-header__title slds-m-right_small slds-align-middle slds-truncate"
+                    title="My Contacts">Films and Actors</h1>
+            </div>
+        </div>
+    </div>
+
+
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+        <thead>
+        <tr class="slds-line-height_reset">
+            <th class="slds-col slds-size_1-of-2 " scope="col">
+                <div class="slds-truncate">Film Name</div>
+            </th>
+            <th class="slds-col slds-size_1-of-2 " scope="col">
+                <div class="slds-truncate">Actors</div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <aura:iteration items="{!v.films}" var="films" indexVar="key">
+            <tr class="slds-hint-parent">
+                <td>
+                    <article class="slds-card">
+                        <div class="slds-card__header slds-grid">
+                            <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                <div class="slds-media__figure">
+                                    <lightning:icon iconName="custom:custom99"/>
+                                </div>
+                                <div class="slds-media__body">
+                                    <h2 class="slds-card__header-title">
+                                        <a href="javascript:void(0);" class="slds-card__header-link slds-truncate"
+                                           title="Accounts">
+                                            <span> {!films.key}</span>
+                                        </a>
+                                    </h2>
+                                </div>
+                            </header>
+                        </div>
+                        <div class="slds-card__body"></div>
+                    </article>
+
+                </td>
+                <td>
+                    <div class="slds-truncate" title="Cloudhub">
+                        <aura:iteration var="film" items="{!films.value}">
+                            <article class="slds-card">
+                                <div class="slds-card__header slds-grid">
+                                    <header class="slds-media slds-media_center slds-has-flexi-truncate">
+                                        <div class="slds-media__figure">
+                                            <lightning:icon iconName="standard:user"/>
+                                        </div>
+                                        <div class="slds-media__body">
+                                            <h2 class="slds-card__header-title">
+                                                <a href="javascript:void(0);"
+                                                   class="slds-card__header-link slds-truncate" title="Accounts">
+                                                    <span> {!film} </span>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                    </header>
+                                </div>
+                                <div class="slds-card__body"></div>
+                            </article>
+
+
+                        </aura:iteration>
+                    </div>
+                </td>
+            </tr>
+        </aura:iteration>
+        </tbody>
+    </table>
+
+</aura:component>
