@@ -12,7 +12,6 @@
         });
         action.setCallback(this, function (a) {
             var films = a.getReturnValue();
-           // component.set("v.films", films);
             var childComponent = component.find("results");
             childComponent.set("v.films", films);
 

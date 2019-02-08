@@ -5,12 +5,16 @@
 <aura:component description="searchFilmsComp" controller = "FilmsController">
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:registerEvent name="SearchKeyChange" type="c:SearchKeyChange"/>
+    <aura:attribute name="boolean" type="boolean" default="false"/>
 
+
+    <aura:attribute name="isVisible" type ="String" />
     <aura:attribute name="actors" type="List"/>
-        <input type="text" class="slds-input"
-               placeholder="Search" onkeyup="{!c.searchKeyChange}"/>
 
-    <aura:if isTrue ="{!not(empty(v.actors))}">
+        <input type="text" class="slds-input"
+               placeholder="Search" onkeyup="{!c.searchKeyChange}" onclick="{!c.searchKeyChange}"/>
+
+    <aura:if isTrue="{!v.boolean}">
     <ui:inputSelect multiple="true"  class="slds-select slds-size_2-of-12" aura:id="InputSelectDynamic"   change="{!c.searchKey}">
         <ui:inputSelectOption />
         <aura:iteration items="{!v.actors}" var="actor">

@@ -16,12 +16,14 @@
     },
 
     searchKey: function (component, event, helper) {
+        component.set("v.boolean", true);
         var myEvent = component.getEvent("SearchKeyChange");
         myEvent.setParams({"searchKey": component.find("InputSelectDynamic").get("v.value")});
         myEvent.fire();
     },
 
     searchKeyChange: function (component, event, helper) {
+        component.set("v.boolean", true);
         var myEvent = component.getEvent("SearchKeyChange");
         myEvent.setParams({"searchKey": event.target.value});
         myEvent.fire();
