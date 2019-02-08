@@ -4,6 +4,7 @@
 
 ({
     searchKeyChange: function (component, event) {
+
         var searchKey = event.getParam("searchKey");
         var action = component.get("c.getFilms");
         action.setParams({
@@ -11,8 +12,10 @@
         });
         action.setCallback(this, function (a) {
             var films = a.getReturnValue();
-            component.set("v.films", films);
-            console.log(films);
+           // component.set("v.films", films);
+            var childComponent = component.find("results");
+            childComponent.set("v.films", films);
+
         });
         $A.enqueueAction(action);
     }

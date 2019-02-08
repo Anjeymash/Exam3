@@ -5,6 +5,7 @@
 <aura:component description="resultFilmsComp" implements="flexipage:availableForAllPageTypes" access="global">
     <aura:attribute name="films" type="List"/>
 
+
     <div class="slds-page-header">
         <div class="slds-grid">
             <div class="slds-align_absolute-center  slds-size_1-of-1">
@@ -73,8 +74,6 @@
                                 </div>
                                 <div class="slds-card__body"></div>
                             </article>
-
-
                         </aura:iteration>
                     </div>
                 </td>

@@ -10,7 +10,7 @@
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
 
     <aura:attribute name="Spinner" type="boolean" default="false"/>
-    <aura:attribute name="films" type="List"/>
+  <!--  <aura:attribute name="films" type="List"/>-->
 
 
     <aura:if isTrue="{!v.Spinner}">
@@ -35,7 +35,7 @@
 
 
     <div class="slds-card__header slds-size&#45;&#45;1-of-1">
-        <c:searchFilmsComp/>
-        <c:resultFilmsComp films="{!v.films}"/>
+        <c:searchFilmsComp aura:id="picklist"/>
+        <c:resultFilmsComp  aura:id="results"/>
     </div>
 </aura:component>

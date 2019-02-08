@@ -10,11 +10,12 @@
         <input type="text" class="slds-input"
                placeholder="Search" onkeyup="{!c.searchKeyChange}"/>
 
+    <aura:if isTrue ="{!not(empty(v.actors))}">
     <ui:inputSelect multiple="true"  class="slds-select slds-size_2-of-12" aura:id="InputSelectDynamic"   change="{!c.searchKey}">
         <ui:inputSelectOption />
         <aura:iteration items="{!v.actors}" var="actor">
             <ui:inputSelectOption text="{!actor}" label="{!actor}" />
         </aura:iteration>
     </ui:inputSelect>
-
+    </aura:if>
 </aura:component>
