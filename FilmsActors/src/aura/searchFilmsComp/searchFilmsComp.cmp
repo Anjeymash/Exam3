@@ -3,12 +3,15 @@
  -->
 
 <aura:component description="searchFilmsComp" controller = "FilmsController">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:registerEvent name="SearchKeyChange" type="c:SearchKeyChange"/>
+
     <aura:attribute name="actors" type="List"/>
         <input type="text" class="slds-input"
                placeholder="Search" onkeyup="{!c.searchKeyChange}"/>
 
-    <ui:inputSelect  class="slds-input slds-size_2-of-12" aura:id="InputSelectDynamic"   change="{!c.searchKey}">
-        <ui:inputSelectOption text="Select Actor"  />
+    <ui:inputSelect multiple="true"  class="slds-select slds-size_2-of-12" aura:id="InputSelectDynamic"   change="{!c.searchKey}">
+        <ui:inputSelectOption />
         <aura:iteration items="{!v.actors}" var="actor">
             <ui:inputSelectOption text="{!actor}" label="{!actor}" />
         </aura:iteration>

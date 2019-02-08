@@ -2,6 +2,7 @@
  * Created by mashkovskiya on 2/6/2019.
  */
 ({
+
     getactors: function (component, event) {
         var searchKey = event.target.value;
         var action = component.get("c.getActors");

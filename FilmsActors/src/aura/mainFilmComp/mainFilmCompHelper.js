@@ -10,12 +10,7 @@
             "searchKey": searchKey
         });
         action.setCallback(this, function (a) {
-            var map = a.getReturnValue();
-            var films = [];
-            console.log(map);
-            for(var key in map){
-                films.push({value:map[key], key:key});
-            }
+            var films = a.getReturnValue();
             component.set("v.films", films);
             console.log(films);
         });

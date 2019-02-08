@@ -2,6 +2,6 @@
  - Created by mashkovskiya on 1/15/2019.
  -->
 
-<aura:event type="APPLICATION" description="SearchKeyChange">
+<aura:event type="COMPONENT" description="SearchKeyChange">
     <aura:attribute name="searchKey" type="String"/>
 </aura:event>
