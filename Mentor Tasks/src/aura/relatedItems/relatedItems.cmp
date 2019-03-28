@@ -1,0 +1,80 @@
+<!--
+ - Created by mashkovskiya on 3/22/2019.
+ -->
+
+<aura:component description="relatedItems"
+                implements="flexipage:availableForRecordHome,force:hasRecordId"
+                access="global"
+                controller="RelatedItemController">
+
+    <aura:attribute name="items" type="Object" access="public"/>
+    <aura:attribute name="columns" type="List" access="public"/>
+    <aura:attribute name="initparams" type="Map" access="public"/>
+    <aura:attribute name="overlay" type="Aura.Component" access="public"/>
+    <aura:attribute name="itemId" type="String" access="public"/>
+    <aura:attribute name="sortedBy" type="String" default="Name" access="public"/>
+    <aura:attribute name="sortedDirection" type="String" default="asc" access="public"/>
+    <aura:attribute name="defaultSortDirection" type="String" default="desc"/>
+    <aura:attribute name="Spinner" type="boolean" default="false"/>
+
+
+    <aura:attribute name="pageNumber" type="Integer" default="1" access="public"/>
+    <aura:attribute name="maxPage" type="Integer" default="1" access="public"/>
+
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler event="force:showToast" action="{!c.init}"/>
+    <aura:handler name="change" value="{!v.pageNumber}" action="{!c.renderPage}"/>
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/>
+
+
+    <aura:registerEvent name="toastEvent" type="force:showToast"/>
+
+    <lightning:overlayLibrary aura:id="overlayLib"/>
+
+    <div class="slds-box slds-theme_shade">
+        <lightning:layout verticalAlign="center">
+            <lightning:layoutItem padding="around-small">
+                <lightning:card iconName="standard:related_list" title="External Items" class="cardBottom">
+
+                    <aura:set attribute="actions">
+                        <aura:if isTrue="{!v.initparams.isCreateAccess}">
+                            <lightning:button variant="neutral" label="New" onclick="{!c.handleNewItem}"/>
+                        </aura:if>
+                    </aura:set>
+
+                    <lightning:datatable
+                            keyField="id"
+                            data="{! v.items }"
+                            columns="{! v.columns }"
+                            hideCheckboxColumn="true"
+                            onrowaction="{! c.handleRowAction }"
+                            onsort="{!c.handleSort}"
+                            sortedDirection="{!v.sortedDirection}"
+                            defaultSortDirection="{! v.defaultSortDirection }"
+                            sortedBy="{!v.sortedBy}"/>
+
+
+                </lightning:card>
+            </lightning:layoutItem>
+        </lightning:layout>
+
+        <aura:if isTrue="{!v.Spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <span class="slds-assistive-text">Loading</span>
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+
+        <lightning:layoutItem class="slds-align_absolute-center" padding="around-small">
+            <c:pagination currentPageNumber="{!v.pageNumber}"
+                          maxPageNumber="{!v.maxPage}"/>
+        </lightning:layoutItem>
+    </div>
+</aura:component>
+
+
+
